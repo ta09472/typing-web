@@ -6,5 +6,15 @@ export type FontSize = "small" | "middle" | "large";
 export type Color = {
   normal: string;
   accuracy: string;
-  inAccuracy: string;
+  inaccuracy: string;
+};
+
+export type DefaultSetting = {
+  theme: Theme;
+  language: Language;
+  mode: Mode;
+  textAlign: TextAlign;
+  fontSize: FontSize;
+  color: Color;
+  systemLanguage: Language;
 };

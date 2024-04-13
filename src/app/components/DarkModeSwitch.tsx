@@ -2,6 +2,7 @@
 
 import { Radio } from "antd";
 import { Mode } from "../type/custom";
+import { useEffect } from "react";
 
 interface Props {
   _theme: Mode;
@@ -20,6 +21,10 @@ export const DarkModeSwitch = ({ _setTheme, _theme }: Props) => {
       document.cookie = `theme=${"light"}`;
     }
   };
+
+  useEffect(() => {
+    toggleTheme();
+  }, []);
 
   return (
     <div className="dark:text-neutral-50 flex gap-8">

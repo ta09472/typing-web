@@ -2,9 +2,10 @@
 import Accuracy from "./Accuracy";
 import sentence from "../contents/sentence";
 import Input from "./Input";
+import { Language } from "../type/custom";
 
 interface Props {
-  lang: "korean" | "english";
+  lang: Language;
   index: number;
   input: string;
   setInput: (v: string) => void;

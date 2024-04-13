@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Basic from "./components/Basic";
 import Pro from "./components/Pro";
 import Minimal from "./components/Minimal";
@@ -12,25 +12,45 @@ import LanguageRadio from "./components/LanguageRadio";
 import TextSizeRadio from "./components/TextSizeRadio";
 import {
   Color,
+  DefaultSetting,
   FontSize,
   Language,
   Mode,
   TextAlign,
   Theme,
 } from "./type/custom";
+import { getLocalStorage, setLocalStorage } from "./util/localStorage";
+
+const defaultSetting: DefaultSetting = {
+  theme: "minimal",
+  systemLanguage: "korean",
+  language: "korean",
+  mode: "light",
+  fontSize: "middle",
+  textAlign: "center",
+  color: {
+    accuracy: "text-black dark:text-neutral-50",
+    normal: "text-neutral-400",
+    inaccuracy: "text-red-500",
+  },
+};
 
 export default function Home() {
-  const [systemLang, setSystemLang] = useState<Language>("korean");
-  const [theme, setTheme] = useState<Theme>("basic");
-  const [lang, setLang] = useState<Language>("korean");
-  const [_theme, _setTheme] = useState<Mode>("light");
-  const [fontSize, setFontSize] = useState<FontSize>("middle");
-  const [textAlign, setTextAlign] = useState<TextAlign>("center");
-  const [color, setColor] = useState<Color>({
-    normal: "",
-    accuracy: "",
-    inAccuracy: "",
-  });
+  const setting: DefaultSetting =
+    getLocalStorage("terminal-type-setting") ?? defaultSetting;
+
+  console.log(setting);
+  const [systemLang, setSystemLang] = useState<Language>(
+    setting.systemLanguage
+  );
+  const [theme, setTheme] = useState<Theme>(setting.theme);
+  const [lang, setLang] = useState<Language>(setting.language);
+  const [_theme, _setTheme] = useState<Mode>(setting.mode);
+  const [fontSize, setFontSize] = useState<FontSize>(setting.fontSize);
+  const [textAlign, setTextAlign] = useState<TextAlign>(setting.textAlign);
+  const [color, setColor] = useState<Color>(setting.color);
+
+  // temp가 필요함
 
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState("");
@@ -43,6 +63,15 @@ export default function Home() {
   };
 
   const handleOk = () => {
+    setLocalStorage("terminal-type-setting", {
+      theme: theme,
+      systemLanguage: systemLang,
+      language: lang,
+      mode: _theme,
+      fontSize: fontSize,
+      textAlign: textAlign,
+      color: color,
+    });
     setIsModalOpen(false);
   };
 
