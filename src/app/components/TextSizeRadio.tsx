@@ -1,18 +1,32 @@
 import { Radio, RadioChangeEvent } from "antd";
-import { useState } from "react";
+import { FontSize } from "../type/custom";
 
-export default function TextSizeRadio() {
-  const [value, setValue] = useState(1);
+interface Props {
+  selectedFontSize: FontSize;
+  setSelectedFontSize: (v: FontSize) => void;
+  isLocal: boolean;
+}
 
+export default function TextSizeRadio({
+  selectedFontSize,
+  setSelectedFontSize,
+  isLocal,
+}: Props) {
   const onChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
+    setSelectedFontSize(e.target.value);
   };
 
   return (
-    <Radio.Group onChange={onChange} value={value}>
-      <Radio value={1}>Small</Radio>
-      <Radio value={2}>Middle</Radio>
-      <Radio value={3}>Large</Radio>
+    <Radio.Group onChange={onChange} value={selectedFontSize}>
+      <Radio value={"small"} className=" text-[14px]">
+        {isLocal ? "작게" : "Small"}
+      </Radio>
+      <Radio value={"middle"} className="text-[16px]">
+        {isLocal ? "중간" : "Middle"}
+      </Radio>
+      <Radio value={"large"} className="text-lg">
+        {isLocal ? "크게" : "Large"}
+      </Radio>
     </Radio.Group>
   );
 }

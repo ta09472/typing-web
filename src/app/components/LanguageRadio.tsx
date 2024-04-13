@@ -1,17 +1,25 @@
 import { Radio, RadioChangeEvent } from "antd";
-import { useState } from "react";
+import { Language } from "../type/custom";
 
-export default function LanguageRadio() {
-  const [value, setValue] = useState(1);
+interface Props {
+  selectedLanguage: Language;
+  setSelectedLanguage: (v: Language) => void;
+  isLocal: boolean;
+}
 
+export default function LanguageRadio({
+  selectedLanguage,
+  setSelectedLanguage,
+  isLocal,
+}: Props) {
   const onChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
+    setSelectedLanguage(e.target.value);
   };
 
   return (
-    <Radio.Group onChange={onChange} value={value}>
-      <Radio value={1}>Korean</Radio>
-      <Radio value={2}>English</Radio>
+    <Radio.Group onChange={onChange} value={selectedLanguage}>
+      <Radio value={"korean"}>{isLocal ? "한국어" : "Korean"}</Radio>
+      <Radio value={"english"}>{isLocal ? "영어" : "English"}</Radio>
     </Radio.Group>
   );
 }

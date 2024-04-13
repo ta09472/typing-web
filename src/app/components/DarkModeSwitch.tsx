@@ -1,19 +1,22 @@
 "use client";
 
 import { Radio } from "antd";
-import { useState } from "react";
+import { Mode } from "../type/custom";
 
-export const DarkModeSwitch = () => {
-  const [_theme, setTheme] = useState("light");
+interface Props {
+  _theme: Mode;
+  _setTheme: (v: Mode) => void;
+}
 
+export const DarkModeSwitch = ({ _setTheme, _theme }: Props) => {
   const toggleTheme = () => {
     const root = document.getElementsByTagName("html")[0];
     root.classList.toggle("dark");
     if (root.classList.contains("dark")) {
-      setTheme("dark");
+      _setTheme("dark");
       document.cookie = `theme=${"dark"}`;
     } else {
-      setTheme("light");
+      _setTheme("light");
       document.cookie = `theme=${"light"}`;
     }
   };

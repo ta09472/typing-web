@@ -1,17 +1,25 @@
 import { Radio, RadioChangeEvent } from "antd";
-import { useState } from "react";
+import { TextAlign } from "../type/custom";
 
-export default function TextAlignRadio() {
-  const [value, setValue] = useState(1);
+interface Props {
+  selectedTextAlign: TextAlign;
+  setSelectedTextAlign: (v: TextAlign) => void;
+  isLocal: boolean;
+}
 
+export default function TextAlignRadio({
+  selectedTextAlign,
+  setSelectedTextAlign,
+  isLocal,
+}: Props) {
   const onChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
+    setSelectedTextAlign(e.target.value);
   };
 
   return (
-    <Radio.Group onChange={onChange} value={value}>
-      <Radio value={1}>Left Align</Radio>
-      <Radio value={2}>Middle Align</Radio>
+    <Radio.Group onChange={onChange} value={selectedTextAlign}>
+      <Radio value={"left"}>{isLocal ? "왼쪽 정렬" : "Left Align"}</Radio>
+      <Radio value={"center"}>{isLocal ? "중앙 정렬" : "Center Align"}</Radio>
     </Radio.Group>
   );
 }

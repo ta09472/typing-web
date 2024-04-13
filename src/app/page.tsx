@@ -5,18 +5,38 @@ import Pro from "./components/Pro";
 import Minimal from "./components/Minimal";
 import { DarkModeSwitch } from "./components/DarkModeSwitch";
 import { Button, Divider, Modal } from "antd";
-import StyleRadio from "./components/StyleRadio";
+import ThemeRadio from "./components/ThemeRadio";
 import ColorRadio from "./components/ColorRadio";
 import TextAlignRadio from "./components/TextAlignRadio";
 import LanguageRadio from "./components/LanguageRadio";
 import TextSizeRadio from "./components/TextSizeRadio";
+import {
+  Color,
+  FontSize,
+  Language,
+  Mode,
+  TextAlign,
+  Theme,
+} from "./type/custom";
 
 export default function Home() {
-  const [theme, setTheme] = useState<"basic" | "minimal" | "pro">("basic");
-  const [lang, setLang] = useState<"english" | "korean">("korean");
+  const [systemLang, setSystemLang] = useState<Language>("korean");
+  const [theme, setTheme] = useState<Theme>("basic");
+  const [lang, setLang] = useState<Language>("korean");
+  const [_theme, _setTheme] = useState<Mode>("light");
+  const [fontSize, setFontSize] = useState<FontSize>("middle");
+  const [textAlign, setTextAlign] = useState<TextAlign>("center");
+  const [color, setColor] = useState<Color>({
+    normal: "",
+    accuracy: "",
+    inAccuracy: "",
+  });
+
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const isLocal = systemLang === "korean";
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -30,7 +50,7 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
-  const renderTheme = (theme: "basic" | "minimal" | "pro") => {
+  const renderTheme = (theme: Theme) => {
     switch (theme) {
       case "pro":
         return (
@@ -103,24 +123,123 @@ export default function Home() {
       </div>
       <Suspense fallback={<div>loading..</div>}>{renderTheme(theme)}</Suspense>
       <Modal
-        title="설정"
+        title={<span className=" text-2xl">{isLocal ? "설정" : "Config"}</span>}
         open={isModalOpen}
         onOk={handleOk}
+        footer={
+          <div className="flex items-center justify-between">
+            <Button
+              className="p-0 m-0"
+              type="link"
+              onClick={() => {
+                setSystemLang((prv) => {
+                  if (prv === "english") return "korean";
+                  return "english";
+                });
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"
+                />
+              </svg>
+            </Button>
+            <div className="flex gap-2">
+              <Button onClick={handleCancel}>
+                {isLocal ? "취소" : "Cancel"}
+              </Button>
+              <Button type="primary" onClick={handleOk}>
+                {isLocal ? "저장" : "Save"}
+              </Button>
+            </div>
+          </div>
+        }
         onCancel={handleCancel}
         centered
       >
         <div className="flex flex-col items-center w-full justify-between">
-          <StyleRadio />
+          <div className="flex w-full flex-col">
+            <span className=" font-semibold text-lg">
+              {isLocal ? "스타일" : "Style"}
+            </span>
+            <div className="flex flex-col items-center w-full justify-between">
+              <ThemeRadio
+                selectedTheme={theme}
+                setSelectedTheme={setTheme}
+                isLocal={isLocal}
+              />
+            </div>
+          </div>
           <Divider />
-          <LanguageRadio />
+          <div className="flex w-full flex-col">
+            <span className=" font-semibold text-lg">
+              {isLocal ? "언어" : "Language"}
+            </span>
+            <div className="flex flex-col items-center w-full justify-between">
+              <LanguageRadio
+                selectedLanguage={lang}
+                setSelectedLanguage={setLang}
+                isLocal={isLocal}
+              />
+            </div>
+          </div>
           <Divider />
-          <ColorRadio />
+          <div className="flex w-full flex-col">
+            <span className=" font-semibold text-lg">
+              {isLocal ? "색상" : "Color"}
+            </span>
+            <div className="flex flex-col items-center w-full justify-between">
+              <ColorRadio
+                selectedColor={color}
+                setSelectedColor={setColor}
+                isLocal={isLocal}
+              />
+            </div>
+          </div>
           <Divider />
-          <TextSizeRadio />
+          <div className="flex w-full flex-col">
+            <span className=" font-semibold text-lg">
+              {isLocal ? "폰트 크기" : "Font Size"}
+            </span>
+            <div className="flex flex-col items-center w-full justify-between">
+              <TextSizeRadio
+                selectedFontSize={fontSize}
+                setSelectedFontSize={setFontSize}
+                isLocal={isLocal}
+              />
+            </div>
+          </div>
           <Divider />
-          <TextAlignRadio />
+          <div className="flex w-full flex-col">
+            <span className=" font-semibold text-lg">
+              {isLocal ? "글자 정렬" : "Text Align"}
+            </span>
+            <div className="flex flex-col items-center w-full justify-between">
+              <TextAlignRadio
+                selectedTextAlign={textAlign}
+                setSelectedTextAlign={setTextAlign}
+                isLocal={isLocal}
+              />
+            </div>
+          </div>
           <Divider />
-          <DarkModeSwitch />
+          <div className="flex w-full flex-col">
+            <span className=" font-semibold text-lg">
+              {isLocal ? "시력 보호" : "Dark Mode"}
+            </span>
+            <div className="flex flex-col items-center w-full justify-between">
+              <DarkModeSwitch _setTheme={_setTheme} _theme={_theme} />
+            </div>
+          </div>
         </div>
       </Modal>
     </div>
