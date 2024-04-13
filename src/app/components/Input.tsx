@@ -54,7 +54,8 @@ export default function Input({
           setInput("");
         }
         if ((sentence[lang].at(index)?.content.length ?? 0) <= value.length) {
-          if (code === "Enter" || code === "Space") {
+          // if (code === "Enter" || code === "Space") {
+          if (code === "Enter") {
             setInput("");
             setIndex((prev: number) => {
               if (prev === sentence[lang].length - 1) {

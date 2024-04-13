@@ -2,7 +2,6 @@
 
 import { Radio } from "antd";
 import { Mode } from "../type/custom";
-import { useEffect } from "react";
 
 interface Props {
   _theme: Mode;
@@ -10,25 +9,20 @@ interface Props {
 }
 
 export const DarkModeSwitch = ({ _setTheme, _theme }: Props) => {
-  const toggleTheme = () => {
+  const toggleTheme = (mode?: Mode) => {
     const root = document.getElementsByTagName("html")[0];
-    root.classList.toggle("dark");
-    if (root.classList.contains("dark")) {
+    if (mode === "dark") {
+      root.classList.add("dark");
       _setTheme("dark");
-      document.cookie = `theme=${"dark"}`;
     } else {
+      root.classList.remove("dark");
       _setTheme("light");
-      document.cookie = `theme=${"light"}`;
     }
   };
 
-  useEffect(() => {
-    toggleTheme();
-  }, []);
-
   return (
     <div className="dark:text-neutral-50 flex gap-8">
-      <Radio.Group onChange={toggleTheme} value={_theme}>
+      <Radio.Group onChange={(e) => toggleTheme(e.target.value)} value={_theme}>
         <Radio
           value={"light"}
           className="dark:bg-neutral-800 dark:text-neutral-200"

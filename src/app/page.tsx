@@ -4,7 +4,7 @@ import Basic from "./components/Basic";
 import Pro from "./components/Pro";
 import Minimal from "./components/Minimal";
 import { DarkModeSwitch } from "./components/DarkModeSwitch";
-import { Button, Divider, Modal } from "antd";
+import { Button, Divider, FloatButton, Modal, Popconfirm, Tooltip } from "antd";
 import ThemeRadio from "./components/ThemeRadio";
 import ColorRadio from "./components/ColorRadio";
 import TextAlignRadio from "./components/TextAlignRadio";
@@ -29,9 +29,9 @@ const defaultSetting: DefaultSetting = {
   fontSize: "middle",
   textAlign: "center",
   color: {
-    accuracy: "text-black dark:text-neutral-50",
-    normal: "text-neutral-400",
-    inaccuracy: "text-red-500",
+    accuracy: "text-[#000000]",
+    normal: "text-[#cbd5e1]",
+    inaccuracy: "text-[#446cef]",
   },
 };
 
@@ -39,7 +39,6 @@ export default function Home() {
   const setting: DefaultSetting =
     getLocalStorage("terminal-type-setting") ?? defaultSetting;
 
-  console.log(setting);
   const [systemLang, setSystemLang] = useState<Language>(
     setting.systemLanguage
   );
@@ -79,12 +78,22 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
+  const tempSetting = {
+    theme,
+    mode: _theme,
+    color,
+    language: lang,
+    systemLanguage: systemLang,
+    fontSize,
+    textAlign,
+  };
+
   const renderTheme = (theme: Theme) => {
     switch (theme) {
       case "pro":
         return (
           <Pro
-            lang={lang}
+            setting={tempSetting}
             index={index}
             setIndex={setIndex}
             input={input}
@@ -95,7 +104,7 @@ export default function Home() {
       case "basic":
         return (
           <Basic
-            lang={lang}
+            setting={tempSetting}
             index={index}
             setIndex={setIndex}
             input={input}
@@ -106,7 +115,7 @@ export default function Home() {
       case "minimal":
         return (
           <Minimal
-            lang={lang}
+            setting={tempSetting}
             index={index}
             setIndex={setIndex}
             input={input}
@@ -119,6 +128,23 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const toggleTheme = (mode?: Mode) => {
+      const root = document.getElementsByTagName("html")[0];
+      if (mode === "dark") {
+        root.classList.add("dark");
+        _setTheme("dark");
+      } else {
+        root.classList.remove("dark");
+        _setTheme("light");
+      }
+    };
+    const storedTheme = getLocalStorage("terminal-type-setting");
+    if (storedTheme) {
+      toggleTheme(storedTheme.mode);
+    }
+  }, []);
+
   return (
     <div>
       <div className="fixed top-0 p-4 w-full bg-transparent flex items-center justify-between">
@@ -126,7 +152,11 @@ export default function Home() {
           /terminal-type/
         </div>
         <div>
-          <Button type="text" onClick={showModal}>
+          <Button
+            type="text"
+            onClick={showModal}
+            className="dark:text-neutral-50"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -194,9 +224,19 @@ export default function Home() {
               <Button onClick={handleCancel}>
                 {isLocal ? "취소" : "Cancel"}
               </Button>
-              <Button type="primary" onClick={handleOk}>
-                {isLocal ? "저장" : "Save"}
-              </Button>
+              <Popconfirm
+                title={isLocal ? "설정 저장" : "Save Settings"}
+                description={
+                  isLocal
+                    ? "이 설정을 유지할까요?"
+                    : "Do you want me to keep the settings?"
+                }
+                onConfirm={handleOk}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="primary">{isLocal ? "저장" : "Save"}</Button>
+              </Popconfirm>
             </div>
           </div>
         }
@@ -229,7 +269,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <Divider />
+          {/* <Divider />
           <div className="flex w-full flex-col">
             <span className=" font-semibold text-lg">
               {isLocal ? "색상" : "Color"}
@@ -241,7 +281,7 @@ export default function Home() {
                 isLocal={isLocal}
               />
             </div>
-          </div>
+          </div> */}
           <Divider />
           <div className="flex w-full flex-col">
             <span className=" font-semibold text-lg">
@@ -279,6 +319,27 @@ export default function Home() {
           </div>
         </div>
       </Modal>
+      {/* <Tooltip title="Copied!" trigger="click">
+        <FloatButton
+          onClick={() => console.log("onClick")}
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+              />
+            </svg>
+          }
+        />
+      </Tooltip> */}
     </div>
   );
 }

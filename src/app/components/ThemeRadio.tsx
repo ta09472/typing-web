@@ -20,19 +20,16 @@ export default function ThemeRadio({
     <Radio.Group onChange={onChange} value={selectedTheme}>
       <Radio
         value={"basic"}
-        className="dark:bg-neutral-800 dark:text-neutral-200"
+        className="dark:bg-neutral-800 dark:text-neutral-50"
       >
         {isLocal ? "베이직" : "Basic"}
       </Radio>
-      <Radio
-        value={"pro"}
-        className="dark:bg-neutral-800 dark:text-neutral-200"
-      >
+      <Radio value={"pro"} className="dark:bg-neutral-800 dark:text-neutral-50">
         {isLocal ? "프로" : "Pro"}
       </Radio>
       <Radio
         value={"minimal"}
-        className="dark:bg-neutral-800 dark:text-neutral-200"
+        className="dark:bg-neutral-800 dark:text-neutral-50"
       >
         {isLocal ? "미니멀" : "Minimal"}
       </Radio>

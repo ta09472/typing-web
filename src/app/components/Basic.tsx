@@ -4,23 +4,25 @@ import { useRef, useEffect } from "react";
 import sentence from "../contents/sentence";
 import Accuracy from "./Accuracy";
 import Input from "./Input";
+import { DefaultSetting } from "../type/custom";
+import { getFontSize } from "../util/font";
 
 interface Props {
-  lang: "korean" | "english";
   index: number;
   input: string;
   setInput: (v: string) => void;
   setIndex: any;
+  setting: DefaultSetting;
 }
 
 export default function Basic({
-  lang,
   index,
   input,
   setInput,
   setIndex,
+  setting,
 }: Props) {
-  const currentSentence = sentence[lang].at(index);
+  const currentSentence = sentence[setting.language].at(index);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -76,8 +78,12 @@ export default function Basic({
             <div className="flex flex-nowrap text-nowrap whitespace-nowrap relative">
               <div className="flex items-center dark:text-neutral-400 ">
                 <div>
-                  <span className="dark:text-neutral-50">
-                    {lang}@{currentSentence?.author}: ~$
+                  <span
+                    className={`dark:text-neutral-50 ${getFontSize(
+                      setting.fontSize
+                    )}`}
+                  >
+                    {setting.language}@{currentSentence?.author}: ~$
                   </span>
                 </div>
 
@@ -85,11 +91,17 @@ export default function Basic({
                   <div className="flex-none">
                     <Accuracy
                       color={{
-                        accuracy: "text-black dark:text-neutral-50",
-                        normal: "text-gray-400",
-                        inaccuracy: "text-red-500",
+                        accuracy: `text-black dark:text-neutral-50 ${getFontSize(
+                          setting.fontSize
+                        )}`,
+                        normal: `text-gray-400 ${getFontSize(
+                          setting.fontSize
+                        )}`,
+                        inaccuracy: `text-red-500 ${getFontSize(
+                          setting.fontSize
+                        )}`,
                       }}
-                      target={sentence[lang].at(index)?.content}
+                      target={sentence[setting.language].at(index)?.content}
                       input={input}
                     />
                   </div>
@@ -98,8 +110,10 @@ export default function Basic({
                     setIndex={setIndex}
                     setInput={setInput}
                     index={index}
-                    lang={lang}
-                    className="flex-1 bg-transparent text-lg text-transparent font-light absolute top-0 left-0 w-full caret-gray-400 dark:caret-neutral-400"
+                    lang={setting.language}
+                    className={`flex-1 bg-transparent  text-transparent font-light absolute top-0 left-0 w-full caret-gray-400 dark:caret-neutral-400 ${getFontSize(
+                      setting.fontSize
+                    )}`}
                   />
                 </div>
               </div>

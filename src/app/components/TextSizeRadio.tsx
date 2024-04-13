@@ -17,22 +17,32 @@ export default function TextSizeRadio({
   };
 
   return (
-    <Radio.Group onChange={onChange} value={selectedFontSize}>
-      <Radio
+    <Radio.Group
+      onChange={onChange}
+      value={selectedFontSize}
+      className="flex items-center"
+    >
+      {/* <Radio
         value={"small"}
-        className=" text-[14px]  dark:bg-neutral-800 dark:text-neutral-200"
+        className="  text-sm  dark:bg-neutral-800 dark:text-neutral-200"
       >
         {isLocal ? "작게" : "Small"}
       </Radio>
       <Radio
         value={"middle"}
-        className="text-[16px] dark:bg-neutral-800 dark:text-neutral-200"
+        className=" dark:bg-neutral-800 dark:text-neutral-200"
       >
         {isLocal ? "중간" : "Middle"}
-      </Radio>
+      </Radio> */}
       <Radio
         value={"large"}
         className="text-lg dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "중간" : "Medium"}
+      </Radio>
+      <Radio
+        value={"extraLarge"}
+        className="text-2xl dark:bg-neutral-800 dark:text-neutral-200"
       >
         {isLocal ? "크게" : "Large"}
       </Radio>
