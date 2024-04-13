@@ -123,7 +123,15 @@ export default function Home() {
       </div>
       <Suspense fallback={<div>loading..</div>}>{renderTheme(theme)}</Suspense>
       <Modal
-        title={<span className=" text-2xl">{isLocal ? "설정" : "Config"}</span>}
+        classNames={{
+          header: "dark:bg-neutral-800 dark:text-neutral-200",
+          content: "dark:bg-neutral-800 dark:text-neutral-200",
+        }}
+        title={
+          <span className=" text-2xl dark:bg-neutral-800 dark:text-neutral-200">
+            {isLocal ? "설정" : "Config"}
+          </span>
+        }
         open={isModalOpen}
         onOk={handleOk}
         footer={

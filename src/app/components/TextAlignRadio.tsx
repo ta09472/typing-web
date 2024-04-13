@@ -18,8 +18,18 @@ export default function TextAlignRadio({
 
   return (
     <Radio.Group onChange={onChange} value={selectedTextAlign}>
-      <Radio value={"left"}>{isLocal ? "왼쪽 정렬" : "Left Align"}</Radio>
-      <Radio value={"center"}>{isLocal ? "중앙 정렬" : "Center Align"}</Radio>
+      <Radio
+        value={"left"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "왼쪽 정렬" : "Left Align"}
+      </Radio>
+      <Radio
+        value={"center"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "중앙 정렬" : "Center Align"}
+      </Radio>
     </Radio.Group>
   );
 }

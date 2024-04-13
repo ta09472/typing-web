@@ -18,13 +18,22 @@ export default function TextSizeRadio({
 
   return (
     <Radio.Group onChange={onChange} value={selectedFontSize}>
-      <Radio value={"small"} className=" text-[14px]">
+      <Radio
+        value={"small"}
+        className=" text-[14px]  dark:bg-neutral-800 dark:text-neutral-200"
+      >
         {isLocal ? "작게" : "Small"}
       </Radio>
-      <Radio value={"middle"} className="text-[16px]">
+      <Radio
+        value={"middle"}
+        className="text-[16px] dark:bg-neutral-800 dark:text-neutral-200"
+      >
         {isLocal ? "중간" : "Middle"}
       </Radio>
-      <Radio value={"large"} className="text-lg">
+      <Radio
+        value={"large"}
+        className="text-lg dark:bg-neutral-800 dark:text-neutral-200"
+      >
         {isLocal ? "크게" : "Large"}
       </Radio>
     </Radio.Group>

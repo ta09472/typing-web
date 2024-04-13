@@ -24,7 +24,10 @@ export const DarkModeSwitch = ({ _setTheme, _theme }: Props) => {
   return (
     <div className="dark:text-neutral-50 flex gap-8">
       <Radio.Group onChange={toggleTheme} value={_theme}>
-        <Radio value={"light"}>
+        <Radio
+          value={"light"}
+          className="dark:bg-neutral-800 dark:text-neutral-200"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -40,7 +43,10 @@ export const DarkModeSwitch = ({ _setTheme, _theme }: Props) => {
             />
           </svg>
         </Radio>
-        <Radio value={"dark"}>
+        <Radio
+          value={"dark"}
+          className="dark:bg-neutral-800 dark:text-neutral-200"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

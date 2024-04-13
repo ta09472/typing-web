@@ -18,8 +18,18 @@ export default function LanguageRadio({
 
   return (
     <Radio.Group onChange={onChange} value={selectedLanguage}>
-      <Radio value={"korean"}>{isLocal ? "한국어" : "Korean"}</Radio>
-      <Radio value={"english"}>{isLocal ? "영어" : "English"}</Radio>
+      <Radio
+        value={"korean"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "한국어" : "Korean"}
+      </Radio>
+      <Radio
+        value={"english"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "영어" : "English"}
+      </Radio>
     </Radio.Group>
   );
 }

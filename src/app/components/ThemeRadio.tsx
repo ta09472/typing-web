@@ -18,9 +18,24 @@ export default function ThemeRadio({
 
   return (
     <Radio.Group onChange={onChange} value={selectedTheme}>
-      <Radio value={"basic"}>{isLocal ? "베이직" : "Basic"}</Radio>
-      <Radio value={"pro"}>{isLocal ? "프로" : "Pro"}</Radio>
-      <Radio value={"minimal"}>{isLocal ? "미니멀" : "Minimal"}</Radio>
+      <Radio
+        value={"basic"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "베이직" : "Basic"}
+      </Radio>
+      <Radio
+        value={"pro"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "프로" : "Pro"}
+      </Radio>
+      <Radio
+        value={"minimal"}
+        className="dark:bg-neutral-800 dark:text-neutral-200"
+      >
+        {isLocal ? "미니멀" : "Minimal"}
+      </Radio>
     </Radio.Group>
   );
 }
