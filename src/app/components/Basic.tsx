@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import sentence from "../contents/sentence";
 import Accuracy from "./Accuracy";
+import Input from "./Input";
 
 interface Props {
   lang: "korean" | "english";
@@ -92,34 +93,13 @@ export default function Basic({
                       input={input}
                     />
                   </div>
-                  <input
-                    autoFocus
-                    ref={inputRef}
-                    type="text"
-                    className="flex-1 bg-transparent text-lg text-transparent font-light absolute top-0 left-0 w-full caret-gray-400 dark:caret-neutral-400"
+                  <Input
                     value={input}
-                    onChange={({ currentTarget }) =>
-                      setInput(currentTarget.value)
-                    }
-                    onKeyDown={({ code }) => {
-                      if (code === "Escape") {
-                        setInput("");
-                      }
-                      if (code === "Enter") {
-                        if (
-                          (sentence[lang].at(index)?.content.length ?? 0) <=
-                          input.length
-                        ) {
-                          setInput("");
-                          setIndex((prev: number) => {
-                            if (prev === sentence[lang].length - 1) {
-                              return 0;
-                            }
-                            return prev + 1;
-                          });
-                        }
-                      }
-                    }}
+                    setIndex={setIndex}
+                    setInput={setInput}
+                    index={index}
+                    lang={lang}
+                    className="flex-1 bg-transparent text-lg text-transparent font-light absolute top-0 left-0 w-full caret-gray-400 dark:caret-neutral-400"
                   />
                 </div>
               </div>
