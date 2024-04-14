@@ -1,4 +1,5 @@
 "use client";
+
 import { Suspense, useEffect, useState } from "react";
 import Basic from "./components/Basic";
 import Pro from "./components/Pro";
@@ -36,8 +37,13 @@ const defaultSetting: DefaultSetting = {
 };
 
 export default function Home() {
-  const setting: DefaultSetting =
-    getLocalStorage("terminal-type-setting") ?? defaultSetting;
+  const [setting, setSetting] = useState(defaultSetting);
+
+  useEffect(() => {
+    const setting: DefaultSetting =
+      getLocalStorage("terminal-type-setting") ?? defaultSetting;
+    setSetting(setting);
+  }, []);
 
   const [systemLang, setSystemLang] = useState<Language>(
     setting.systemLanguage

@@ -1,7 +1,6 @@
 import { ColorPicker, Space } from "antd";
 import { useState } from "react";
 import { Color } from "../type/custom";
-import { getLocalStorage } from "../util/localStorage";
 
 interface Props {
   selectedColor: Color;
