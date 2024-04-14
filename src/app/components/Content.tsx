@@ -22,7 +22,7 @@ export default function Content({
     case "pro":
       return (
         <Pro
-          lang={setting.language}
+          setting={setting}
           index={index}
           setIndex={setIndex}
           input={input}
@@ -33,7 +33,7 @@ export default function Content({
     case "basic":
       return (
         <Basic
-          lang={setting.language}
+          setting={setting}
           index={index}
           setIndex={setIndex}
           input={input}
@@ -44,7 +44,7 @@ export default function Content({
     case "minimal":
       return (
         <Minimal
-          lang={setting.language}
+          setting={setting}
           index={index}
           setIndex={setIndex}
           input={input}
