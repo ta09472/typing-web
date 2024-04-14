@@ -40,7 +40,7 @@ export default function Pro({
           inaccuracy: `text-red-500 ${getFontSize(setting.fontSize)}`,
         }}
       />
-      <div className="bg-black rounded-lg min-w-[40rem] flex gap-2 items-center mb-12">
+      <div className="bg-black rounded-lg min-w-[45rem] flex gap-2 items-center mb-12">
         <div className="pl-2 text-white">{">_"}</div>
         <Input
           className={`w-full p-2 bg-transparent text-white font-light ${getFontSize(

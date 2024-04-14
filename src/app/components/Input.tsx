@@ -42,11 +42,11 @@ export default function Input({
       ref={inputRef}
       value={value}
       onChange={({ currentTarget }) => {
-        if (value.length === 0) {
-          if (currentTarget.value === " ") {
-            return;
-          }
-        }
+        // if (value.length === 0) {
+        //   if (currentTarget.value === " ") {
+        //     return;
+        //   }
+        // }
         setInput(currentTarget.value);
       }}
       onKeyDown={({ code }) => {

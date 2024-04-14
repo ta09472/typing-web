@@ -22,7 +22,7 @@ export default function Minimal({
 }: Props) {
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen gap-4 dark:bg-neutral-800">
-      <div className="flex flex-col gap-4 ml-[14rem] w-[40rem]">
+      <div className="flex flex-col gap-4 w-min-[40rem]">
         <div
           className={`text-md text-neutral-500 -skew-x-6 ml-2 dark:text-neutral-500 ${getAuthorFontSize(
             setting.fontSize

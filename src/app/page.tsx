@@ -295,7 +295,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <Divider />
+          {/* <Divider />
           <div className="flex w-full flex-col">
             <span className=" font-semibold text-lg">
               {isLocal ? "글자 정렬" : "Text Align"}
@@ -307,7 +307,7 @@ export default function Home() {
                 isLocal={isLocal}
               />
             </div>
-          </div>
+          </div> */}
           <Divider />
           <div className="flex w-full flex-col">
             <span className=" font-semibold text-lg">
